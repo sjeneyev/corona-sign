@@ -1,0 +1,79 @@
+<div class="auth-page">
+  <div class="panda-logo">
+    <img class="panda-logo" src="../../assets/images/panda-logo-1920.png" alt="#"/>
+  </div>
+  <mat-card class="form-container">
+    <div class="form-title">
+      <h2>טופס הצהרת קורונה</h2>
+    </div>
+    <div>
+      <ul>
+        <li>
+          אני מצהיר/ה כי ערכתי היום בדיקה למדידת חום גוף, בה נמצא כי חום גופי אינו עולה על
+          38 מעלות צלסיוס וכי לא היה לי חום כאמור בשבוע האחרון.
+        </li>
+        <li>
+          אני מצהיר/ה כי לא הייתי במגע קרוב עם חולה קורונה בשבועיים האחרונים.
+        </li>
+        <li>
+          אני מצהיר/ה כי אנני משתעל/ת וכן כי אין לי קשיים בנשימה.
+          <span>(למעט שיעול או קושי בנשימה הנובע ממצב כרוני כגון אסטמה או אלרגיה אחרת)</span>
+        </li>
+        <li>אני מתחייב/ת לשמור מרחק של לפחות 2 מטרים ביני לבין אדם אחר במקום העבודה.</li>
+        <li>ידוע לי כי בעט שימוש במעלית, לא ישהו בה יותר מ2 נוסעים בו-זמנית.</li>
+        <li>אני מצהיר/ה כי הוקצע לי ציוד אישי קבוע ובכלל מקלדת, עכבר, טלפון קווי.<br>
+          אני מתחייב/ת שלא לעשות שימוש בציוד אישי של עובד/ת אחר/ת
+        </li>
+        <li>אני מתחייב/ת לחבוש מסיכה במקום העבודה בכל עת.</li>
+        <li>אני מצהיר/ה כי לא הייתי במגע עם חולה קורונה בשבועיים האחרונים.</li>
+      </ul>
+    </div>
+    <div>
+      <form [formGroup]="signForm">
+        <div class="form-group">
+          <mat-form-field class="field-full-width">
+            <mat-label>שם מלא</mat-label>
+            <input
+              matInput
+              type="text"
+              id="fullName"
+              formControlName="fullName"
+              name="fullName"
+              placeholder="שם מלא"
+              autocomplete="off"
+            />
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <mat-form-field class="field-full-width">
+            <mat-label>תעודת זהות</mat-label>
+            <input
+              matInput
+              type="text"
+              id="employeeId"
+              formControlName="employeeId"
+              name="employeeId"
+              placeholder="תעודת זהות"
+            />
+          </mat-form-field>
+        </div>
+        <div>
+          <div class="wrapper">
+            <canvas class="signature-pad"></canvas>
+          </div>
+        </div>
+        <div class="login-buttons">
+          <button
+            mat-raised-button
+            class="sign-button"
+            [disabled]="!signForm.valid"
+            type="submit"
+            (click)="onSign()">
+            שלח
+          </button>
+
+        </div>
+      </form>
+    </div>
+  </mat-card>
+</div>
