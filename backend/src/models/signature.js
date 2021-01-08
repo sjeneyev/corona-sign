@@ -5,7 +5,6 @@ const signatureSchema = mongoose.Schema(
         // TODO: create the model
         fullName: {
             type: String,
-            trim: true,
             required: true,
         },
         idNumber: {
@@ -13,6 +12,7 @@ const signatureSchema = mongoose.Schema(
             required: true,
         },
         signature: {
+            required: true,
             type: Buffer,
         },
     },
