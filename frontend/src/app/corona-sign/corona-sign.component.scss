@@ -1,8 +1,18 @@
 @import "../../variables";
 
+.panda-logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
 .form-title {
     color: $text-color;
-    margin: -70px 0 51px 0;
+    font-weight: 600;
+
+    p {
+        font-size:33px;
+    }
 }
 
 .form-container {
@@ -15,6 +25,39 @@
     align-items: center;
     align-content: center;
     opacity: 0.88;
+
+    li {
+        margin: 5px 0 5px 0;
+    }
+    .sign-pad {
+        display: flex;
+        justify-content: center;
+    }
+
+    .inputs {
+        display: flex;
+
+        .field-full-width {
+            margin: 10px 15px 10px 15px;
+        }
+    }
+
+    .sign-buttons {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+
+        .sign-button {
+            width: 170px;
+            height: 50px;
+            font-weight: 600;
+
+            &.active {
+                color: $white;
+                background-color: $item-color;
+            }
+        }
+    }
 }
 
 .signature-pad {

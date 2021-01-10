@@ -9,6 +9,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { HttpClientModule } from '@angular/common/http';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
     declarations: [AppComponent, CoronaSignComponent],
@@ -16,10 +18,12 @@ import { MatInputModule } from '@angular/material/input';
         BrowserModule,
         BrowserAnimationsModule,
         MatCardModule,
+        HttpClientModule,
         ReactiveFormsModule,
         MatFormFieldModule,
         MatButtonModule,
         MatInputModule,
+        MatAutocompleteModule,
     ],
     providers: [],
     bootstrap: [AppComponent],

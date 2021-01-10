@@ -4,7 +4,7 @@
     </div>
     <mat-card class="form-container">
         <div class="form-title">
-            <h2>טופס הצהרת קורונה</h2>
+            <p>טופס הצהרת קורונה</p>
         </div>
         <div>
             <ul>
@@ -30,42 +30,55 @@
         </div>
         <div>
             <form [formGroup]="signForm">
-                <div class="form-group">
-                    <mat-form-field class="field-full-width">
-                        <mat-label>שם מלא</mat-label>
-                        <input
-                            matInput
-                            type="text"
-                            id="fullName"
-                            formControlName="fullName"
-                            name="fullName"
-                            placeholder="שם מלא"
-                            autocomplete="off"
-                        />
-                    </mat-form-field>
+                <div class="inputs">
+                    <div class="form-group">
+                        <mat-form-field class="field-full-width">
+                            <mat-label *ngIf="isloading" >טוען...</mat-label>
+                            <mat-label *ngIf="!isloading">שם מלא</mat-label>
+                            <input
+                                matInput
+                                type="text"
+                                formControlName="fullName"
+                                name="fullName"
+                                placeholder="שם מלא"
+                                autocomplete="off"
+                                [matAutocomplete]="auto"
+                            />
+                            <mat-autocomplete
+                                #auto="matAutocomplete">
+                                <mat-option #selectedName
+                                            (click)="setIdNumber(selectedName.value)"
+                                            *ngFor="let name of filteredOptions | async" [value]="name">
+                                    {{name}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+
+                    </div>
+                    <div class="form-group">
+                        <mat-form-field class="field-full-width">
+                            <mat-label>תעודת זהות</mat-label>
+                            <input
+                                matInput
+                                type="text"
+                                id="employeeId"
+                                formControlName="employeeId"
+                                name="employeeId"
+                                placeholder="תעודת זהות"
+                            />
+                        </mat-form-field>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <mat-form-field class="field-full-width">
-                        <mat-label>תעודת זהות</mat-label>
-                        <input
-                            matInput
-                            type="text"
-                            id="employeeId"
-                            formControlName="employeeId"
-                            name="employeeId"
-                            placeholder="תעודת זהות"
-                        />
-                    </mat-form-field>
-                </div>
-                <div>
+                <div class="sign-pad">
                     <div class="wrapper">
                         <canvas class="signature-pad"></canvas>
                     </div>
                 </div>
-                <div class="login-buttons">
+                <div class="sign-buttons">
                     <button
                         mat-raised-button
                         class="sign-button"
+                        [ngClass]="signForm.valid ? 'active' : ''"
                         [disabled]="!signForm.valid"
                         type="submit"
                         (click)="onSign()">
