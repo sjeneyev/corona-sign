@@ -4,6 +4,7 @@ import * as SignaturePad from 'signature_pad';
 import { DataService } from './data.service';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-corona-sign',
@@ -20,11 +21,14 @@ export class CoronaSignComponent implements OnInit, AfterViewInit {
     filteredOptions: Observable<string[]>;
     selectedEmp = {};
     idNumber = '';
+    isTest = false;
+    imageUrl: SafeUrl;
 
     constructor(
         private formBuilder: FormBuilder,
         private el: ElementRef,
-        private dataService: DataService
+        private dataService: DataService,
+        private sanitizer: DomSanitizer
     ) {}
 
     ngOnInit(): void {
@@ -74,13 +78,13 @@ export class CoronaSignComponent implements OnInit, AfterViewInit {
     }
 
     onSign(): void {
-        console.log(this.signaturePad.toDataURL('png'));
+        console.log(this.signaturePad.toDataURL('jpg'));
         const data: FormData = new FormData();
         Object.keys(this.selectedEmp).forEach((key) => {
             data.append(key, this.selectedEmp[key]);
         });
         // data.append('signature', this.signaturePad.toDataURL());
-        this.selectedEmp['signature'] = this.signaturePad.toDataURL();
+        this.selectedEmp['signature'] = this.signaturePad.toDataURL('jpg');
 
         this.dataService
             .addSignature(this.selectedEmp)
@@ -91,5 +95,15 @@ export class CoronaSignComponent implements OnInit, AfterViewInit {
 
     get formControls() {
         return this.signForm.controls;
+    }
+
+    onTest() {
+        this.isTest = true;
+        this.dataService.getSignatures().subscribe((response) => {
+            const unsafeImageUrl = URL.createObjectURL(response);
+            this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(
+                unsafeImageUrl
+            );
+        });
     }
 }

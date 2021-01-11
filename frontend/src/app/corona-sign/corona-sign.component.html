@@ -84,9 +84,13 @@
                         (click)="onSign()">
                         שלח
                     </button>
-
+                    <button mat-raised-button
+                            class="sign-button" (click)="onTest()">TEST</button>
                 </div>
             </form>
         </div>
     </mat-card>
+    <div *ngIf="isTest">
+        <img [src]="imageUrl" style="height: 100px; width: 100px" alt="#">
+    </div>
 </div>

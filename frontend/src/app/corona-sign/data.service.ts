@@ -17,4 +17,10 @@ export class DataService {
         // console.log(data);
         return this.http.post(`${env.backendEndpoint}/signature`, data, {});
     }
+
+    getSignatures() {
+        return this.http.get(`${env.backendEndpoint}/signatures`, {
+            responseType: 'blob',
+        });
+    }
 }
