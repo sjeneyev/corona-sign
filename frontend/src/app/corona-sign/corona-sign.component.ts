@@ -86,7 +86,7 @@ export class CoronaSignComponent implements OnInit {
                 this.dialog.open(ConfirmComponent, {
                     height: '200px',
                     width: '200px',
-                    data: 'תודה! יום טוב!',
+                    data: 'תודה, יום טוב!',
                 });
 
                 this.signForm.reset();
