@@ -6,12 +6,6 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
-export interface ISelectedEmp {
-    fullName: string;
-    idNumber: number;
-    signature: string;
-}
-
 @Component({
     selector: 'app-corona-sign',
     templateUrl: './corona-sign.component.html',
@@ -25,7 +19,7 @@ export class CoronaSignComponent implements OnInit, AfterViewInit {
     isloading: boolean;
     names = [];
     filteredOptions: Observable<string[]>;
-    selectedEmp: ISelectedEmp;
+    selectedEmp = {};
     idNumber = '';
     isTest = false;
     imageUrl: SafeUrl;
@@ -62,12 +56,12 @@ export class CoronaSignComponent implements OnInit, AfterViewInit {
     }
 
     setIdNumber(name) {
-        const selEmp = this.employees.filter((item) => {
+        this.selectedEmp = this.employees.filter((item) => {
             return name === `${item.fullName}`;
         });
         this.idNumber = this.selectedEmp[0].idNumber;
         this.formControls.employeeId.setValue(this.idNumber);
-        this.selectedEmp = selEmp[0];
+        this.selectedEmp = this.selectedEmp[0];
     }
 
     ngAfterViewInit() {
@@ -88,7 +82,7 @@ export class CoronaSignComponent implements OnInit, AfterViewInit {
         Object.keys(this.selectedEmp).forEach((key) => {
             data.append(key, this.selectedEmp[key]);
         });
-        this.selectedEmp.signature = this.signaturePad.toDataURL('jpg');
+        this.selectedEmp['signature'] = this.signaturePad.toDataURL('jpg');
 
         this.dataService
             .addSignature(this.selectedEmp)
