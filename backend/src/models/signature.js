@@ -13,7 +13,7 @@ const signatureSchema = mongoose.Schema(
         },
         signature: {
             required: true,
-            type: Buffer,
+            type: Boolean,
         },
     },
     {

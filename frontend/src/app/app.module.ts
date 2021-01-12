@@ -11,9 +11,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ConfirmComponent } from './confirm/confirm.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-    declarations: [AppComponent, CoronaSignComponent],
+    declarations: [AppComponent, CoronaSignComponent, ConfirmComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
@@ -24,6 +27,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
         MatButtonModule,
         MatInputModule,
         MatAutocompleteModule,
+        MatCheckboxModule,
+        MatDialogModule,
     ],
     providers: [],
     bootstrap: [AppComponent],

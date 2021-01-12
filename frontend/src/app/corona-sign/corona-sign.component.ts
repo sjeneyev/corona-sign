@@ -1,19 +1,18 @@
-import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import * as SignaturePad from 'signature_pad';
 import { DataService } from './data.service';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmComponent } from '../confirm/confirm.component';
 
 @Component({
     selector: 'app-corona-sign',
     templateUrl: './corona-sign.component.html',
     styleUrls: ['./corona-sign.component.scss'],
 })
-export class CoronaSignComponent implements OnInit, AfterViewInit {
-    canvas;
-    signaturePad;
+export class CoronaSignComponent implements OnInit {
     signForm: FormGroup;
     employees = [];
     isloading: boolean;
@@ -21,14 +20,12 @@ export class CoronaSignComponent implements OnInit, AfterViewInit {
     filteredOptions: Observable<string[]>;
     selectedEmp = {};
     idNumber = '';
-    isTest = false;
-    imageUrl: SafeUrl;
 
     constructor(
         private formBuilder: FormBuilder,
         private el: ElementRef,
         private dataService: DataService,
-        private sanitizer: DomSanitizer
+        public dialog: MatDialog
     ) {}
 
     ngOnInit(): void {
@@ -36,13 +33,14 @@ export class CoronaSignComponent implements OnInit, AfterViewInit {
         this.signForm = this.formBuilder.group({
             fullName: [null, [Validators.required, Validators.minLength(2)]],
             employeeId: [null, [Validators.required, Validators.minLength(7)]],
-            // signature: [null, [Validators.required]],
+            signature: [null, [Validators.required]],
         });
         this.dataService.getEmployees().subscribe((response) => {
             response.forEach((item) => {
                 const emp = {
                     fullName: `${item.firstName} ${item.lastName}`,
                     idNumber: item.idNumber,
+                    signature: false,
                 };
                 this.employees.push(emp);
                 this.names.push(emp.fullName);
@@ -64,11 +62,6 @@ export class CoronaSignComponent implements OnInit, AfterViewInit {
         this.selectedEmp = this.selectedEmp[0];
     }
 
-    ngAfterViewInit() {
-        this.canvas = this.el.nativeElement.querySelector('canvas');
-        this.signaturePad = new SignaturePad.default(this.canvas);
-    }
-
     private _filter(value: string): string[] {
         const filterValue = value.toLowerCase();
 
@@ -77,31 +70,30 @@ export class CoronaSignComponent implements OnInit, AfterViewInit {
         );
     }
 
+    setSignature() {
+        this.selectedEmp['signature'] = true;
+    }
+
     onSign(): void {
         const data: FormData = new FormData();
         Object.keys(this.selectedEmp).forEach((key) => {
             data.append(key, this.selectedEmp[key]);
         });
-        this.selectedEmp['signature'] = this.signaturePad.toDataURL('jpg');
 
         this.dataService
             .addSignature(this.selectedEmp)
             .subscribe((response) => {
-                console.log(response);
+                this.dialog.open(ConfirmComponent, {
+                    height: '200px',
+                    width: '200px',
+                    data: 'תודה! יום טוב!',
+                });
+
+                this.signForm.reset();
             });
     }
 
     get formControls() {
         return this.signForm.controls;
-    }
-
-    onTest() {
-        this.isTest = true;
-        this.dataService.getSignatures().subscribe((response) => {
-            const unsafeImageUrl = URL.createObjectURL(response);
-            this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(
-                unsafeImageUrl
-            );
-        });
     }
 }

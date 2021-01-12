@@ -8,7 +8,7 @@ const Signature = require("../models/signature");
 
 router.post("/signature", upload.single("signature"), async (req, res) => {
     const signature = new Signature(req.body);
-    signature.signature.contentType = "image/jpg";
+    console.log(signature);
     try {
         await signature.save();
         res.status(200).send({ signature });
