@@ -1,12 +1,14 @@
-<div class="auth-page">
+<div class="corona-sign-wrap">
     <div class="panda-logo">
         <img class="panda-logo" src="../../assets/images/panda-logo-1920.png" alt="#"/>
     </div>
+
     <mat-card class="form-container">
         <div class="form-title">
-            <p>טופס הצהרת קורונה</p>
+            <div>טופס הצהרת קורונה</div>
         </div>
-        <div>
+
+        <div class="form-info-text">
             <ul>
                 <li>
                     אני מצהיר/ה כי ערכתי היום בדיקה למדידת חום גוף, בה נמצא כי חום גופי אינו עולה על
@@ -28,10 +30,10 @@
                 <li>אני מצהיר/ה כי לא הייתי במגע עם חולה קורונה בשבועיים האחרונים.</li>
             </ul>
         </div>
-        <div>
-            <form [formGroup]="signForm">
+        <div class="form-wrap">
+            <form [formGroup]="signForm" class="form">
                 <div class="inputs">
-                    <div class="form-group">
+                    <div class="form-group form-group-first-child">
                         <mat-form-field class="field-full-width">
                             <mat-label *ngIf="isloading" >טוען...</mat-label>
                             <mat-label *ngIf="!isloading">שם מלא</mat-label>
@@ -73,7 +75,7 @@
                     <mat-checkbox
                         formControlName="signature"
                         (click)="setSignature()"
-                        class="example-margin" color="primary">אני מאשר/ת כי קראתי ומתחייב לפעול לפי ההנחיות הנ''ל</mat-checkbox>
+                        class="checkbox-approve" color="primary">אני מאשר/ת כי קראתי ומתחייב לפעול לפי ההנחיות הנ''ל</mat-checkbox>
                 </div>
                 <div class="sign-buttons">
                     <button
