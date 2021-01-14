@@ -75,6 +75,7 @@ export class CoronaSignComponent implements OnInit {
     }
 
     onSign(): void {
+        this.isloading = true;
         const data: FormData = new FormData();
         Object.keys(this.selectedEmp).forEach((key) => {
             data.append(key, this.selectedEmp[key]);
@@ -88,8 +89,8 @@ export class CoronaSignComponent implements OnInit {
                     width: '200px',
                     data: 'תודה, יום טוב!',
                 });
-
-                this.signForm.reset();
+                // this.signForm.reset();
+                this.isloading = false;
             });
     }
 

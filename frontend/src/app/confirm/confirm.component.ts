@@ -18,5 +18,6 @@ export class ConfirmComponent implements OnInit {
 
     onClose() {
         this.dialogRef.close();
+        location.reload();
     }
 }
