@@ -38,7 +38,7 @@ export class CoronaSignComponent implements OnInit {
         this.dataService.getEmployees().subscribe((response) => {
             response.forEach((item) => {
                 const emp = {
-                    fullName: `${item.firstName} ${item.lastName}`,
+                    fullName: `${item.fullName}`,
                     idNumber: item.idNumber,
                     signature: false,
                 };
