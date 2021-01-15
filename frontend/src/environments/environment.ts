@@ -4,7 +4,7 @@
 
 export const environment = {
     production: false,
-    backendEndpoint: 'http://localhost:3000',
+    backendEndpoint: 'https://corona-sign-app.herokuapp.com',
 };
 
 /*

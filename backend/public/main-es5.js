@@ -1013,7 +1013,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     var environment = {
       production: false,
-      backendEndpoint: 'http://localhost:3000'
+      backendEndpoint: 'https://corona-sign-app.herokuapp.com'
     };
     /*
      * For easier debugging in development mode, you can import the following file
